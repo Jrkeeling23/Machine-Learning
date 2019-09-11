@@ -12,11 +12,11 @@ class data_proces():
 
 
     def loadData(self):  #assuming here that data is stored in the data/filename/file format
-        self.my_soy = pd.read_csv('data/soybean-small.data', header=None)
-        self.my_glass = pd.read_csv('data/glass.data', header=None)
-        self.my_votes = pd.read_csv('data/house-votes-84.data', header=None)
-        self.my_cancer = pd.read_csv('data/breast-cancer-wisconsin.data', header=None)
-        self.my_iris = pd.read_csv('data/iris.data', delimiter=',', header=None)
+        self.my_soy = pd.read_csv('data\\soybean-small.data', header=None)
+        self.my_glass = pd.read_csv('data\\glass.data', header=None)
+        self.my_votes = pd.read_csv('data\\house-votes-84.data', header=None)
+        self.my_cancer = pd.read_csv('data\\breast-cancer-wisconsin.data', header=None)
+        self.my_iris = pd.read_csv('data\\iris.data', delimiter=',', header=None)
 
     def miscDataWork(self):  # turn data into discrete format here (and any other odd work)
         # change to discrete values, need to change votes and glass data, make final row class row and numbered
@@ -24,10 +24,15 @@ class data_proces():
         self.my_votes = self.my_votes.replace(to_replace='n', value=0)
         self.my_votes = self.my_votes.replace(to_replace='democrat', value=1)
         self.my_votes = self.my_votes.replace(to_replace='republican', value=0)
+
         # change fist row to last row for format
         cols = self.my_votes.columns.tolist()  # get cols
         cols = cols[1:] + cols[:1]  # re order
         self.my_votes = self.my_votes[cols]  # assign new order to my_votes
+        # fix iris data (set last 3 columns to 1-3
+        self.my_iris = self.my_iris.replace(to_replace='Iris-setosa', value=1)
+        self.my_iris = self.my_iris.replace(to_replace='Iris-versicolor', value=2)
+        self.my_iris = self.my_iris.replace(to_replace='Iris-virginica', value=3)
         # do something with glass data
 
     def removeMissing(self):   # remove missing values, needs to be done for each array:  Methodology: generate average for attribute and use that
@@ -61,7 +66,7 @@ class data_proces():
         for my_list in data_list:  # split each list into 2 lists, training and test and make a list for each
             # rows = my_list.shape[0]  # get rows for total amount of data
             splitnum = math.ceil(len(my_list.index) * .8)  # create a index that contains 80% of the data
-            print(splitnum)
+            # print(splitnum)
             training_data_temp = my_list[:splitnum]
             test_data_temp = my_list[splitnum:]
 
@@ -76,10 +81,12 @@ data =  data_proces()
 data.__init__()
 data.loadData()
 data.miscDataWork()
+# order of data_list:  self.my_votes, self.my_iris, self.my_cancer, self.my_soy,self.my_glass
 data_list = data.removeMissing()
+# print(str(data_list[0]))
 test_data, training_data = data.splitData(data_list)
 
-print(training_data)
+#print(training_data[0])
 
 class naive_bayes:  #implement naive bayes here
     def __init__(self):
