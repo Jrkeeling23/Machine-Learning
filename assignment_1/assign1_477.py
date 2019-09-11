@@ -22,17 +22,20 @@ class data_proces():
         # change to discrete values, need to change votes and glass data, make final row class row and numbered
         self.my_votes = self.my_votes.replace(to_replace='y', value=1)
         self.my_votes = self.my_votes.replace(to_replace='n', value=0)
-        self.my_votes = self.my_votes.replace(to_replace='democrat', value=1)
-        self.my_votes = self.my_votes.replace(to_replace='republican', value=0)
+        # setting '?' to 2 in votes as it is not a "missing" value but a third choice
+        self.my_votes = self.my_votes.replace(to_replace='?', value=2)
+        # should not need to do this as not calculating average will ignore last row
+        # self.my_votes = self.my_votes.replace(to_replace='democrat', value=1)
+        # self.my_votes = self.my_votes.replace(to_replace='republican', value=0)
 
         # change fist row to last row for format
         cols = self.my_votes.columns.tolist()  # get cols
         cols = cols[1:] + cols[:1]  # re order
         self.my_votes = self.my_votes[cols]  # assign new order to my_votes
-        # fix iris data (set last 3 columns to 1-3
-        self.my_iris = self.my_iris.replace(to_replace='Iris-setosa', value=1)
-        self.my_iris = self.my_iris.replace(to_replace='Iris-versicolor', value=2)
-        self.my_iris = self.my_iris.replace(to_replace='Iris-virginica', value=3)
+        # fix iris data (set last 3 columns to 1-3: NOTE: Note needed as we can ignore last col
+        # self.my_iris = self.my_iris.replace(to_replace='Iris-setosa', value=1)
+        # self.my_iris = self.my_iris.replace(to_replace='Iris-versicolor', value=2)
+        # self.my_iris = self.my_iris.replace(to_replace='Iris-virginica', value=3)
         # do something with glass data
 
     def removeMissing(self):   # remove missing values, needs to be done for each array:  Methodology: generate average for attribute and use that
@@ -91,4 +94,6 @@ test_data, training_data = data.splitData(data_list)
 class naive_bayes:  #implement naive bayes here
     def __init__(self):
         self.placeholder = None
+
+
 
