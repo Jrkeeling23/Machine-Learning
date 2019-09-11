@@ -68,9 +68,20 @@ class data_proces():
             training_data.append(training_data_temp)  # append our test sets and training sets to their lists
             test_data.append(test_data_temp)
 
+        return test_data, training_data
     # end of class for doing data stuff (for now)
 
 
+data =  data_proces()
+data.__init__()
+data.loadData()
+data.miscDataWork()
+data_list = data.removeMissing()
+test_data, training_data = data.splitData(data_list)
+
+print(training_data)
+
 class naive_bayes:  #implement naive bayes here
     def __init__(self):
+        self.placeholder = None
 
