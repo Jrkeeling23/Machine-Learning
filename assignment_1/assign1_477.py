@@ -1,5 +1,6 @@
 import pandas as pd
 import math
+import numpy as np
 
 class data_proces():
     def __init__(self):
@@ -32,6 +33,7 @@ class data_proces():
         cols = self.my_votes.columns.tolist()  # get cols
         cols = cols[1:] + cols[:1]  # re order
         self.my_votes = self.my_votes[cols]  # assign new order to my_votes
+        self.my_votes.columns = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]  # manually fixes broke cols
         # fix iris data (set last 3 columns to 1-3: NOTE: Note needed as we can ignore last col
         # self.my_iris = self.my_iris.replace(to_replace='Iris-setosa', value=1)
         # self.my_iris = self.my_iris.replace(to_replace='Iris-versicolor', value=2)
@@ -66,13 +68,9 @@ class data_proces():
         # split into test and training data
         test_data = []
         training_data = []
+        # use numpys split with pandas sample to randomly split the data
         for my_list in data_list:  # split each list into 2 lists, training and test and make a list for each
-            # rows = my_list.shape[0]  # get rows for total amount of data
-            splitnum = math.ceil(len(my_list.index) * .8)  # create a index that contains 80% of the data
-            # print(splitnum)
-            training_data_temp = my_list[:splitnum]
-            test_data_temp = my_list[splitnum:]
-
+            training_data_temp, test_data_temp = np.split(my_list.sample(frac=1), [int(.8 * len(my_list))])
             training_data.append(training_data_temp)  # append our test sets and training sets to their lists
             test_data.append(test_data_temp)
 
@@ -80,20 +78,56 @@ class data_proces():
     # end of class for doing data stuff (for now)
 
 
-data =  data_proces()
+data = data_proces()
 data.__init__()
 data.loadData()
 data.miscDataWork()
 # order of data_list:  self.my_votes, self.my_iris, self.my_cancer, self.my_soy,self.my_glass
 data_list = data.removeMissing()
 # print(str(data_list[0]))
+# order of data sets matches the main sets, 0 - 4 matches above
 test_data, training_data = data.splitData(data_list)
 
-#print(training_data[0])
 
-class naive_bayes:  #implement naive bayes here
-    def __init__(self):
-        self.placeholder = None
+class naive_bayes():  # implement naive bayes here
 
+    def prepPredict(self, train_data): # split data into sets, done  as class names differ by set
+        class_data_list = []  # list of data by class
+        class_atribute_vals = {}  # number of examples in a class / training set example number
+        for tdata in train_data:
+            class_list = tdata[(len(tdata.columns)-1)].unique()
+            class_attr_num = []  # middle ground var to hold examples/total for a given datas et
+
+            for class_name in class_list:  # split data by class
+                class_data_list.append(tdata.loc[tdata[len(tdata.columns)-1] == class_name])
+                class_atribute_vals.update({class_name: ((len(tdata.loc[tdata[len(tdata.columns)-1] == class_name]))/(len(tdata)))})
+                # use dictionary to store class values for later
+
+        return class_atribute_vals, class_data_list
+
+    def calcProbs(self, class_data):
+        # calculate attribute value probabilites
+        class_examples = len(class_data)  # total examples in class
+        valueprobabilites = []  # list of dictionaries to hold probabilites
+        for myClass in class_data:  # go through all class data and calc probs, store prob in dict
+            ClassList = []
+            for col in myClass.iloc[:, :-1]: # go through each col and get unique attr vals (ignore class col)
+                attr_vals_list = myClass[col].unique()
+                for val in attr_vals_list:  # go attr vals and divide number of mathing examples by total in class
+                    matching_ex = myClass[myClass[col] == val].shape[0]
+                    # calculate prob using what we figured out, using len(dataset)-1 to account for class col
+                    attr_val_prob = (matching_ex + 1)/(class_examples +(len(myClass) - 1))
+                    # store this val, with appropriate keywords, {str"Attr:AttrVal": prob}
+                    attr_dict = {str(col) + ":" + str(val):attr_val_prob}
+                    ClassList.append(attr_dict)
+
+            valueprobabilites.append(ClassList)
+        return valueprobabilites
+
+    # now we need to actually make our predictions based on training set data
+
+n = naive_bayes()
+classAttrVals, class_data = n.prepPredict(training_data)
+valProbs = n.calcProbs(class_data)
 
 
