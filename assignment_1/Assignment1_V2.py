@@ -78,10 +78,13 @@ class NV:
         for class_name in class_list:  # split data by class
           #  class_atribute_vals.update({class_name: ((len(dataset.loc[dataset[len(dataset.columns) - 1] == class_name])) / (len(dataset)))})
 
-            mysum = dataset.loc[dataset[len(dataset.columns) - 1] == class_name].count().count().sum()
-            examples = len(dataset.index)
+            mysum = dataset.loc[dataset.iloc[:, -1] == class_name].count().sum()
+
+            examples = dataset.count().sum()
+
 
             classVal = {class_name: mysum/ examples}
+
             class_atribute_vals.update(classVal)
         return class_atribute_vals
 
@@ -95,29 +98,26 @@ class NV:
 
         return DataSet
 
-
     def calcProbs(self, sep_dataset):  # calculate probabilites  given class seperated dataset
 
-
         prob_dict = {}  # dictionary to store probs
-        for class_data in sep_dataset:
-            for useless, row in class_data.iterrows():  # go through rows
-                for i in range(0, len(class_data.columns)-2): # go through cols, ignore class col
+        for prob_data in sep_dataset:
+            for useless, row in prob_data.iterrows():  # go through rows
+                for i in range(0, len(prob_data.columns)-2): # go through cols, ignore class col
                     curVal = row[i]
 
-                    attr_class = row[len(class_data.columns)-1]
+                    attr_class = row[len(prob_data.columns)-1]
                     # calc number attributes matching current
-                    matching_ex = class_data[class_data == curVal].count()
+                    matching_ex = prob_data[prob_data == curVal].count()
                     matching_ex = matching_ex.sum()
                     # calc number of attributes in class
-                    total_attr = len(class_data.index) # all but final row
-                    attr_prob = (matching_ex + 1)/(total_attr + len(class_data.columns)-1)
+                    total_attr = len(prob_data.index) # all but final row
+                    attr_prob = (matching_ex + 1)/(total_attr + len(prob_data.columns)-1)
                     # now to store attr prob + class
                     # class, index, value : prob
                     prob_dict[attr_class, i, curVal] = attr_prob
 
         return prob_dict
-
 
     def predictData(self, test_set, attr_probs, class_attrVal):
 
@@ -127,6 +127,7 @@ class NV:
         for curObs, row in test_set.iterrows():
             for curClass in class_names:
 
+                curProb = 0
                 maxProbcur = {}
                 curClassProbs = []
                 classDict = {}
@@ -161,7 +162,6 @@ class NV:
                     print(maxProb)
             maxProbClass = maxProbcur[maxProb]
             predicSet.append([maxProb, curObs, maxProbClass])
-
 
         return predicSet
 
