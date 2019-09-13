@@ -78,9 +78,10 @@ class NV:
         for class_name in class_list:  # split data by class
           #  class_atribute_vals.update({class_name: ((len(dataset.loc[dataset[len(dataset.columns) - 1] == class_name])) / (len(dataset)))})
 
-            mysum = dataset.loc[dataset.iloc[:, -1] == class_name]
+            mysum = dataset.loc[dataset[len(dataset.columns) - 1] == class_name].count().count().sum()
+            examples = len(dataset.index)
 
-            classVal = {class_name: (mysum.count().sum())/ (dataset.count().sum())}
+            classVal = {class_name: mysum/ examples}
             class_atribute_vals.update(classVal)
         return class_atribute_vals
 
@@ -97,20 +98,20 @@ class NV:
 
     def calcProbs(self, sep_dataset):  # calculate probabilites  given class seperated dataset
 
-        print(sep_dataset)
+
         prob_dict = {}  # dictionary to store probs
         for class_data in sep_dataset:
             for useless, row in class_data.iterrows():  # go through rows
                 for i in range(0, len(class_data.columns)-2): # go through cols, ignore class col
                     curVal = row[i]
-                    print(row[i])
+
                     attr_class = row[len(class_data.columns)-1]
                     # calc number attributes matching current
                     matching_ex = class_data[class_data == curVal].count()
                     matching_ex = matching_ex.sum()
                     # calc number of attributes in class
-                    total_attr = class_data.iloc[:, :-1].sum() # all but final row
-                    attr_prob = (matching_ex + 1)/(total_attr.sum() + len(class_data.columns)-1)
+                    total_attr = len(class_data.index) # all but final row
+                    attr_prob = (matching_ex + 1)/(total_attr + len(class_data.columns)-1)
                     # now to store attr prob + class
                     # class, index, value : prob
                     prob_dict[attr_class, i, curVal] = attr_prob
@@ -153,7 +154,11 @@ class NV:
                     maxProbcur[curClassProb] = myclass  # add it to dict
                 # grab the highest prob (largest key)
 
-            maxProb = max(maxProbcur.keys()) # largest  key
+            maxProb = 0#max(maxProbcur.keys()) # largest  key
+            for key in maxProbcur.keys():
+                if key > maxProb:
+                    maxProb = key
+                    print(maxProb)
             maxProbClass = maxProbcur[maxProb]
             predicSet.append([maxProb, curObs, maxProbClass])
 
@@ -171,14 +176,14 @@ test_data, training_data = n.splitData(data_list)
 
 
 # actual algo stuff  (just 1 dataset to test)
-attr_eg = n.calcExamples(training_data[1])
+attr_eg = n.calcExamples(training_data[0])
 
-class_data = n.seperateByClass(training_data[1])
+class_data = n.seperateByClass(training_data[0])
 
 print(attr_eg)
 probsList = n.calcProbs(class_data)
 #print(probsList)
 
-predictions = n.predictData(test_data[1], probsList, attr_eg)
+predictions = n.predictData(test_data[0], probsList, attr_eg)
 print(predictions)
 #print(len(predictions))
