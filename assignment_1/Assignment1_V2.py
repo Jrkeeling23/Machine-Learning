@@ -1,3 +1,5 @@
+import operator
+
 import pandas as pd
 import math
 import numpy as np
@@ -99,68 +101,86 @@ class NV:
         return DataSet
 
     def calcProbs(self, sep_dataset):  # calculate probabilites  given class seperated dataset
+        probs = {}
+        for class_set in sep_dataset:
+            # for each attribute value. divide number of examples that that attribute value plus one by the number
+            # of exammples in the class
+            classArr = class_set[(len(class_set.columns) - 1)].unique()
+            ClassName = classArr[0]
+            #print(ClassName)
+            # go through cols (attributes) but not class col
+            for column in class_set.iloc[:, :-1]:
+              values = class_set[column].unique() # find unique values
+              for val in values:  # find out how many times that value appears in this col
+                valcount = (class_set[column] == val).sum()
+                # divide that count there by the count we get for all values in the class (in our case just all vals)
+                total_examples = (class_set.count()).sum()
+                attribute_count = len(class_set.index)  # counting rows
+                # do the division
+                value_probability = (valcount + 1) / (total_examples + attribute_count)
+                # store the class, value (what it was), colum (what attr it is) and prob
+                probs[ClassName, val, column] = value_probability
 
-        prob_dict = {}  # dictionary to store probs
-        for prob_data in sep_dataset:
-            for useless, row in prob_data.iterrows():  # go through rows
-                for i in range(0, len(prob_data.columns)-2): # go through cols, ignore class col
-                    curVal = row[i]
+            # prob_dict = {}  # dictionary to store probs
+             #for prob_data in sep_dataset:
+                #   for useless, row in prob_data.iterrows():  # go through rows
+           #     for i in range(0, len(prob_data.columns)-2): # go through cols, ignore class col
+          #               curVal = row[i]
 
-                    attr_class = row[len(prob_data.columns)-1]
+            #        attr_class = row[len(prob_data.columns)-1]
                     # calc number attributes matching current
-                    matching_ex = prob_data[prob_data == curVal].count()
-                    matching_ex = matching_ex.sum()
-                    # calc number of attributes in class
-                    total_attr = len(prob_data.index) # all but final row
-                    attr_prob = (matching_ex + 1)/(total_attr + len(prob_data.columns)-1)
+             #       matching_ex = prob_data[prob_data == curVal].count()
+                #    matching_ex = matching_ex.sum()
+              #      # calc number of attributes in class
+               #     total_attr = prob_data.iloc[:, :-1].count().sum()
+                    #print(total_attr)# all but final row
+                 #   attr_prob = (matching_ex + 1)/(total_attr + len(prob_data.columns)-1)
                     # now to store attr prob + class
                     # class, index, value : prob
-                    prob_dict[attr_class, i, curVal] = attr_prob
+                  #  prob_dict[attr_class, i, curVal] = attr_prob
+                    #print(attr_prob)
 
-        return prob_dict
+        return probs
 
     def predictData(self, test_set, attr_probs, class_attrVal):
 
-        class_names = test_set[len(test_set.columns) -1].unique()
+        class_names = (test_set[len(test_set.columns) - 1]).unique()
         predicSet = []
 
+        # go through the row and predict stuff
         for curObs, row in test_set.iterrows():
+            classDict = {}
+            finalPred = {}
             for curClass in class_names:
 
                 curProb = 0
-                maxProbcur = {}
                 curClassProbs = []
-                classDict = {}
+
                 for i in range(0, (len(test_set.columns) -2)):
                     indexVal = row[i]
                     index = i;
-                    # get all stored values that have same classname, index and value and add probability to
-                    try:
-                        curProb = attr_probs[curClass, index, indexVal]
-                    except:
-                        print("ERROR LOOKING FOR PROB (MOST LIKELY NOT FOUND IN TRAINING DATA")
-                        print(curClass, index, indexVal)
+                    # get all stored values that have same classname, index and value and add probability to list
+                    curProb = attr_probs[curClass, indexVal, index]
 
+                  #  print(curProb)
                     # add curProb to this classes list of prob
                     # do not need index as we check this for other classes but not anymore then that
                     curClassProbs.append(curProb)
+
+
                 classDict[curClass] = curClassProbs  # set dict probabilites for current class equal to class prob list
+
             # we got the probabilites for that val, now we need to find out what class has highest prob for current obs
-                for myclass in classDict:
+            for probClass in class_names:
+                # take all values in one set and multiply them
+                prediction = class_attrVal[probClass] * (np.prod(classDict[probClass])) # sum all vals
+                finalPred[prediction] = {probClass}
 
-                    classProbList = classDict[myclass] # get list of probs
-                    # multiply them together plus class prob
-                    classProb = class_attrVal[myclass]
-                    curClassProb = classProb * (np.prod(classProbList))
-                    maxProbcur[curClassProb] = myclass  # add it to dict
-                # grab the highest prob (largest key)
 
-            maxProb = 0#max(maxProbcur.keys()) # largest  key
-            for key in maxProbcur.keys():
-                if key > maxProb:
-                    maxProb = key
-                    print(maxProb)
-            maxProbClass = maxProbcur[maxProb]
+        # last step, choose larger probability
+            maxProb = max(k for k, v in finalPred.items() if v != 0)
+            maxProbClass = finalPred[maxProb]
+
             predicSet.append([maxProb, curObs, maxProbClass])
 
         return predicSet
@@ -182,8 +202,8 @@ class_data = n.seperateByClass(training_data[0])
 
 print(attr_eg)
 probsList = n.calcProbs(class_data)
-#print(probsList)
 
+print(test_data[0])
 predictions = n.predictData(test_data[0], probsList, attr_eg)
 print(predictions)
 #print(len(predictions))
