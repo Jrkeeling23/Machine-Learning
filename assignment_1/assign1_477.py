@@ -13,11 +13,11 @@ class data_proces():
 
 
     def loadData(self):  #assuming here that data is stored in the data/filename/file format
-        self.my_soy = pd.read_csv('data\\soybean-small.data', header=None)
-        self.my_glass = pd.read_csv('data\\glass.data', header=None)
-        self.my_votes = pd.read_csv('data\\house-votes-84.data', header=None)
-        self.my_cancer = pd.read_csv('data\\breast-cancer-wisconsin.data', header=None)
-        self.my_iris = pd.read_csv('data\\iris.data', delimiter=',', header=None)
+        self.my_soy = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/soybean-small.data', header=None)
+        self.my_glass = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/glass.data', header=None)
+        self.my_votes = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/house-votes-84.data', header=None)
+        self.my_cancer = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/breast-cancer-wisconsin.data', header=None)
+        self.my_iris = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/iris.data', delimiter=',', header=None)
 
     def miscDataWork(self):  # turn data into discrete format here (and any other odd work)
         # change to discrete values, need to change votes and glass data, make final row class row and numbered

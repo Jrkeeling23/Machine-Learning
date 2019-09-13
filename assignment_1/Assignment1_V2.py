@@ -8,11 +8,11 @@ import numpy as np
 class NV:
 
     def loadData(self):  #assuming here that data is stored in the data/filename/file format
-        self.my_soy = pd.read_csv('data\\soybean-small.data', header=None)
-        self.my_glass = pd.read_csv('data\\glass.data', header=None)
-        self.my_votes = pd.read_csv('data\\house-votes-84.data', header=None)
-        self.my_cancer = pd.read_csv('data\\breast-cancer-wisconsin.data', header=None)
-        self.my_iris = pd.read_csv('data\\iris.data', delimiter=',', header=None)
+        self.my_soy = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/soybean-small.data', header=None)
+        self.my_glass = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/glass.data', header=None)
+        self.my_votes = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/house-votes-84.data', header=None)
+        self.my_cancer = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/breast-cancer-wisconsin.data', header=None)
+        self.my_iris = pd.read_csv('/home/alex/Documents/Montana State/CSCI_447_Machine_Learning/assignment_1/data/iris.data', delimiter=',', header=None)
 
     def miscDataWork(self):  # turn data into discrete format here (and any other odd work)
         # change to discrete values, need to change votes and glass data, make final row class row and numbered
@@ -200,14 +200,25 @@ test_data, training_data = n.splitData(data_list)
 
 # actual algo stuff  (just 1 dataset to test)
 attr_eg = n.calcExamples(training_data[1])
-
+print("attr", attr_eg)
 class_data = n.seperateByClass(training_data[1])
 
-print(attr_eg)
+# print(attr_eg)
 probsList = n.calcProbs(class_data)
 
 predictions = n.predictData(test_data[1], probsList, attr_eg)
+expected = np.array(test_data[1][len(test_data[1].columns) - 1])
 
-print(test_data[1])
-print(predictions)
+print("Expected:, ", expected)
+# print(predictions)
 #print(len(predictions))
+predict = []
+expected_2 = []
+for i in predictions:
+    predict.append(i[2])
+print("Predict: ", predict)
+for i in range(len(predict)):
+    if expected[i] in predict[i]:
+        print("True")
+    else:
+        print("False")
