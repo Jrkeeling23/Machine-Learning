@@ -160,7 +160,10 @@ class NV:
                     indexVal = row[i]
                     index = i;
                     # get all stored values that have same classname, index and value and add probability to list
-                    curProb = attr_probs[curClass, indexVal, index]
+                    try:
+                        curProb = attr_probs[curClass, indexVal, index]
+                    except:
+                        print("Value not found in probabilites")
 
                   #  print(curProb)
                     # add curProb to this classes list of prob
@@ -196,14 +199,15 @@ test_data, training_data = n.splitData(data_list)
 
 
 # actual algo stuff  (just 1 dataset to test)
-attr_eg = n.calcExamples(training_data[0])
+attr_eg = n.calcExamples(training_data[1])
 
-class_data = n.seperateByClass(training_data[0])
+class_data = n.seperateByClass(training_data[1])
 
 print(attr_eg)
 probsList = n.calcProbs(class_data)
 
-print(test_data[0])
-predictions = n.predictData(test_data[0], probsList, attr_eg)
+predictions = n.predictData(test_data[1], probsList, attr_eg)
+
+print(test_data[1])
 print(predictions)
 #print(len(predictions))
