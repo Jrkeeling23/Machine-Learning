@@ -180,14 +180,33 @@ class NV:
                 finalPred[prediction] = {probClass}
 
 
+
         # last step, choose larger probability
             maxProb = max(k for k, v in finalPred.items() if v != 0)
             maxProbClass = finalPred[maxProb]
 
             predicSet.append([maxProb, curObs, maxProbClass])
-
+            print("Final pred: ", finalPred)
         return predicSet
 
+    def accuracy(self, expected, predicted): # Function to get the accuracy of the algorithm
+
+        predict = []
+        for i in predictions:  # grabs the prediction value from the data set
+            predict.append(i[2])  # Appends the predictions to a list
+
+        # Counters for the accuracy formula
+        true_positive = 0
+        false_positive = 0
+
+        for i in range(len(predict)):  # Loops through the predictions/expected values and matches a true or false.
+            if expected[i] in predict[i]:  # checks if the exptected output matches the prediction
+                true_positive += 1
+            else:
+                false_positive += 1
+
+        accuracy = true_positive / (true_positive + false_positive) # Calculates the accuracy
+        print("Accuracy: ", accuracy)
 
 # data stuff
 n = NV()
@@ -206,19 +225,10 @@ class_data = n.seperateByClass(training_data[1])
 # print(attr_eg)
 probsList = n.calcProbs(class_data)
 
-predictions = n.predictData(test_data[1], probsList, attr_eg)
-expected = np.array(test_data[1][len(test_data[1].columns) - 1])
+expected = np.array(test_data[1][len(test_data[1].columns) - 1]) # the list of expected outputs from the test data
+predictions = n.predictData(test_data[1], probsList, attr_eg) # list of predicted outputs
 
-print("Expected:, ", expected)
-# print(predictions)
-#print(len(predictions))
-predict = []
-expected_2 = []
-for i in predictions:
-    predict.append(i[2])
-print("Predict: ", predict)
-for i in range(len(predict)):
-    if expected[i] in predict[i]:
-        print("True")
-    else:
-        print("False")
+n.accuracy(expected, predictions)
+
+
+
