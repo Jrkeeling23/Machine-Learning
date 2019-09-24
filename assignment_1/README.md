@@ -1,1 +1,0 @@
-Directory for assignment 1.
