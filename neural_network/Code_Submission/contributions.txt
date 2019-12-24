@@ -1,0 +1,11 @@
+Alex Harry:
+Rebuilt k-means and converting data to numerical.  Constructed the main file to run the networks. Fixed loss functions. 
+
+Justin Keeling:
+Rebuilt medoids.  Fixed MLP network predictions and loss functions.  Incorporate condensed knn.  Descretized data.
+
+Andrew Smith:
+Wrote the RBF network.
+
+John Lambrecht:
+Wrote the MLP feed-forward network.
