@@ -1,0 +1,11 @@
+Alexander Harry: 
+Predicted the nearest neighbor given a list of k-nn.  Wrote the function for K-means.
+
+Justin Keeling:
+Wrote the structure for the code.  Wrote the data processing and importing, medoids, euclidean distance and the main knn function.
+
+Andrew Smith:
+Wrote the two loss functions, k-fold, and the condense data function.
+
+John Lambrecht:
+Wrote the function for edited data.    
