@@ -61,17 +61,17 @@ The data is pre-processed similarily to that of project one, but normalizing the
 
 ## Contributers
 Justin Keeling
-jrkeeling23@gmail.com
-github username: Jrkeeling23
+* jrkeeling23@gmail.com
+* github username: Jrkeeling23
 
 John Lambrecht
-jclambrecht97@msn.com
-github username: JohnLambrecht1
+* jclambrecht97@msn.com
+* github username: JohnLambrecht1
 
 Alex Harry
-alex.harry1@gmail.com
-github username: AlexanderHarry
+* alex.harry1@gmail.com
+* github username: AlexanderHarry
 
 Andrew Smith
-a.smith@troutmoon.com
-github username: TheGreatFatCat
+* a.smith@troutmoon.com
+* github username: TheGreatFatCat
