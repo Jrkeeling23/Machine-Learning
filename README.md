@@ -7,12 +7,12 @@ Course Objective: To learn why and how different machine learning algorithms ope
 
 ### Project Index
 * [Projects Overview](#projects-overview)
-* [Project 1: Naive Bayes](# )
-* [Project 2: K-Nearest Neighbors](# )
-* [Project 3: Neural Networks](# )
-* [Project 4: Swarm-Based](# )
-* [Extra Credit: Stacked Autoencoder](# )
-* [Contributors](# )
+* [Project 1: Naive Bayes](#project-1:-naive-bayes)
+* [Project 2: K Nearest Neighbors](#project-2:-k-nearest-neighbor)
+* [Project 3: Neural Networks](#project-3:-neural-networks)
+* [Project 4: Swarm-Based](#project-4:-swarm---based)
+* [Extra Credit: Stacked Autoencoder](#extra-credit:-stacked-autoencoder)
+* [Contributors](#contributors)
 
 ## Projects Overview
 Brief description of projects 1-4 and an additional extra credit project.
@@ -50,7 +50,7 @@ Naive Bayes is the algorithm to be implemented. Using the original data, and ran
 K-fold cross validation with a K of 10 is also implemented. 
 
 
-### Project 2: K-Nearest Neighbor
+### Project 2: K Nearest Neighbor
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-P2.git)
 
 
