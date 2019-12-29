@@ -14,7 +14,8 @@ Course Objective: To learn why and how different machine learning algorithms ope
 * [Contributors](#contributers)
 
 ## Projects Overview
-Brief description of projects 1-4 and an additional extra credit project.
+Brief description of projects 1-4 and an additional extra credit project. For each project, a link to the working repo is given. This is to provide additional information.
+
 All of the projects use [Pandas](https://pandas.pydata.org/pandas-docs/stable/) in Python3.
 
 Project 1 uses different data sets than projects 2-4 (and the extra credit). The data sets for projects 2-4 and extra credit consist of classifcation data and regression data as shown below.
