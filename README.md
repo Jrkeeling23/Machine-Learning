@@ -8,10 +8,10 @@ Course Objective: To learn why and how different machine learning algorithms ope
 ### Project Index
 * [Projects Overview](#projects-overview)
 * [Project 1: Naive Bayes](#project-1-naive-bayes)
-* [Project 2: K Nearest Neighbors](#project-2:-k-nearest-neighbor)
-* [Project 3: Neural Networks](#project-3:-neural-networks)
-* [Project 4: Swarm-Based](#project-4:-swarm---based)
-* [Extra Credit: Stacked Autoencoder](#extra-credit:-stacked-autoencoder)
+* [Project 2: K Nearest Neighbors](#project-2-k-nearest-neighbor)
+* [Project 3: Neural Networks](#project-3-neural-networks)
+* [Project 4: Swarm-Based](#project-4-swarm---based)
+* [Extra Credit: Stacked Autoencoder](#extra-credit-stacked-autoencoder)
 * [Contributors](#contributors)
 
 ## Projects Overview
