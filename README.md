@@ -5,7 +5,16 @@ Instructor: Dr. John W. Sheppard
 
 Course Objective: To learn why and how different machine learning algorithms operate.
 
-## Project Overview
+### Project Index
+* [Projects Overview](#projects-overview)
+* [Project 1: Naive Bayes](# )
+* [Project 2: K-Nearest Neighbors](# )
+* [Project 3: Neural Networks](# )
+* [Project 4: Swarm-Based](# )
+* [Extra Credit: Stacked Autoencoder](# )
+* [Contributors](# )
+
+## Projects Overview
 Brief description of projects 1-4 and an additional extra credit project.
 All of the projects use [Pandas](https://pandas.pydata.org/pandas-docs/stable/) in Python3.
 
