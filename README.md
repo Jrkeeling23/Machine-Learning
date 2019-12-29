@@ -19,6 +19,8 @@ Project 1 uses different data sets than projects 2-4 (and the extra credit). The
 
 ### Project 1: Naive Bayes
 [Working Repo](https://github.com/AlexanderHarry/CSCI_447_Machine_Learning.git)
+
+
 Project 1 is a gentle introduction to machine learning. This project uses the following discrete data sets:
 * [Breast Cancer](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+/%28Original/%29)
 * [Glass](https://archive.ics.uci.edu/ml/datasets/Glass+Identification)
@@ -41,6 +43,8 @@ K-fold cross validation with a K of 10 is also implemented.
 
 ### Project 2: K-Nearest Neighbor
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-P2.git)
+
+
 Project 2 focuses on the different implementations of KNN. 
 The data is pre-processed similarily to that of project one. 
 
@@ -56,6 +60,8 @@ Comparisons between edited and condensed as well as centroids and medoids are ma
 
 ### Project 3: Neural Networks
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-P3.git)
+
+
 The data is pre-processed similarily to that of project 1. 
 The key concepts that are to implemented in this project are feed forward neural network and back propagation.
 Using 
@@ -64,12 +70,16 @@ Using
 
 ### Project 4: Swarm Based 
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-P4.git)
+
+
 The data is pre-processed similarily to that of project 1.
 
 
 
 ### Extra Credit: Stacked Autoencoder
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-Extra.git)
+
+
 The extra credit assignment focuses on a single algorithm; SAE.  
 The data is pre-processed similarily to that of project 1, but normalizing the data is implemented for better results.
 
