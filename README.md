@@ -42,8 +42,6 @@ These data sets are to be pre-processed to:
 2. Character data handeling,
 3. Split into 80% train data and 20% test data.
 
-
-
 #### Naive Bayes Algorithm
 Naive Bayes is the algorithm to be implemented. Using the original data, and randomizing 10% of the data to add noise, Naive Bayes is to be run on both to compare the results. Zero-one loss and log likelihood are used to compare the results of the original data and the data with noise.
 
@@ -89,8 +87,21 @@ The MLP is also a feed forward network that uses back propagation. It is impleme
 ### Project 4: Swarm Based 
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-P4.git)
 
-The data is pre-processed similarily to that of project 1. 
+The data is pre-processed similarily to that of project 1.
 
+#### Swarm Based Algorithms
+The swarm based algorithms involve evolutionary algorithms and how they work. By using stochastic approaches in mating, and using a basis function for natural selection, the algorithms use this premsise. 
+
+1. Genetic Algorithm (GA)
+* Random crossover and mutation. This has a toll on convergence.
+* Pair most fit parents 
+* Considers 1's in the chromosome to calculate fitness.
+2. Particle Swarm Optimization
+* Uses neighbourhood topology, velocity, global and personal best to update the particles. 
+* Converges when particles move towards an optimal point.
+3. Differential Evolution
+* Random crossover
+* Random parents
 
 ### Extra Credit: Stacked Autoencoder
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-Extra.git)
@@ -101,7 +112,7 @@ The data is pre-processed similarily to that of project 1, but normalizing the d
 #### Stacked Autoencoder Algorithm
 By implementing a neural network (an autoencoder) and having an option to have a neural network over the top for prediction is the basis of the stacked autoencoder. 
 This network is a feed forward network that uses back propagation. For stacking purposes, a doubly linked list is used. 
-A linear activation funtion is usef for the output layers while the hidden layers use a sigmoidal activation function. 
+A linear activation funtion is used for the output layers while the hidden layers use a sigmoidal activation function. 
 
 
 ## Contributers
