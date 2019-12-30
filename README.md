@@ -44,7 +44,7 @@ These data sets are to be pre-processed to:
 
 
 
-#### Naive Bayes
+#### Naive Bayes Algorithm
 Naive Bayes is the algorithm to be implemented. Using the original data, and randomizing 10% of the data to add noise, Naive Bayes is to be run on both to compare the results. Zero-one loss and log likelihood are used to compare the results of the original data and the data with noise.
 
 K-fold cross validation with a K of 10 is also implemented. 
@@ -71,26 +71,37 @@ Comparisons between edited and condensed as well as centroids and medoids are ma
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-P3.git)
 
 
-The data is pre-processed similarily to that of project 1. 
-The key concepts that are to implemented in this project are feed forward neural network and back propagation.
-Using 
+The data is pre-processed similarily to that of project 1 and project 2. The neural network uses data produced from the condensed KNN algorithm and the partition around medoids result. 
 
+The key concepts that are to implemented in this project are feed forward neural network, back propagation, and activation functions. In the project, the network uses the sigmoidal activation function.
+
+
+#### Neural Network Implementation
+1. Radial Basis Function Network(RBFN)
+
+The RBFN is implemented such that number of inputs, outputs, and number of Gaussian basis functions is arbitratry. RBFN also is implemented as feedforward network that uses back propagation. Using the condensed, edited, medoids, and centroids from project 2, the RBFN is tested. 
+
+2. Multi-Layer Perceptron (MLP)
+
+The MLP is also a feed forward network that uses back propagation. It is implemented to have an abitrary number of hidden layers, nodes in each layer, inputs, and outputs. Lastly, momentum is provided as an option that can be defined.
 
 
 ### Project 4: Swarm Based 
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-P4.git)
 
-
-The data is pre-processed similarily to that of project 1.
-
+The data is pre-processed similarily to that of project 1. 
 
 
 ### Extra Credit: Stacked Autoencoder
 [Working Repo](https://github.com/Jrkeeling23/CSCI-447-Machine-Learning-Extra.git)
 
-
-The extra credit assignment focuses on a single algorithm; SAE.  
+The extra credit assignment focuses on a single algorithm; stacked autoencoder (SAE). 
 The data is pre-processed similarily to that of project 1, but normalizing the data is implemented for better results.
+
+#### Stacked Autoencoder Algorithm
+By implementing a neural network (an autoencoder) and having an option to have a neural network over the top for prediction is the basis of the stacked autoencoder. 
+This network is a feed forward network that uses back propagation. For stacking purposes, a doubly linked list is used. 
+A linear activation funtion is usef for the output layers while the hidden layers use a sigmoidal activation function. 
 
 
 ## Contributers
